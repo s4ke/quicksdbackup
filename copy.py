@@ -7,8 +7,8 @@ from shutil import copytree, copy2
 
 import os
 
-FROM_DIR = "/home/martin/PycharmProjects/SDCardBackup/test"
-TO_DIR = "/home/martin/PycharmProjects/SDCardBackup/dest/"
+FROM_DIR = "J:\\"
+TO_DIR = "D:\\Bilder\\Automatisch\\"
 
 # All the stuff inside your window. This is the PSG magic code compactor...
 layout = [[sg.Text('Ursprung: ' + FROM_DIR)],
@@ -29,9 +29,14 @@ while True:
 
         count = [0]
         cancelled = [False]
+        total = 0
 
-        onlyfiles = next(os.walk(fromDirectory))[2]
-        total = len(onlyfiles)
+        for dirpath, dirs, files in os.walk(fromDirectory):    
+            for filename in files:
+                fname = os.path.join(dirpath,filename)
+                total += 1
+        
+        print("found " + str(total) + " files.")
 
         sg.OneLineProgressMeter('Fortschritt', count[0], total, 'progress')
 
